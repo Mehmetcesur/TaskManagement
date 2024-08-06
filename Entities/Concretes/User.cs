@@ -14,6 +14,7 @@ namespace Entities.Concretes
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
         public List<Duty> Duties { get; set; }
+        //hello world!!
 
     }
 }
