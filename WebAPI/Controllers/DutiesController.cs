@@ -1,13 +1,17 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Requests.DutyRequest;
 using Core.DataAccess.Paging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
+
+    [Authorize(Roles = "Admin")]
     public class DutiesController : ControllerBase
     {
         IDutyService _dutyService;
