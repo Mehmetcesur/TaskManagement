@@ -14,7 +14,7 @@ namespace Entities.Concretes
 
         public string Description { get; set; }
 
-        public string Status { get; set; }
+        public DutyStatus Status { get; set; }
 
         public User User { get; set; }
 

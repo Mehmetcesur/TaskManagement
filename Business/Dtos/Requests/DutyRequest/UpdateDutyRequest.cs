@@ -13,7 +13,7 @@ namespace Business.Dtos.Requests.DutyRequest
 
         public string Description { get; set; }
 
-        public string Status { get; set; }
+        public DutyStatus Status { get; set; }
         public int UserId { get; set; }
     }
 }
