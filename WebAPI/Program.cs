@@ -28,6 +28,8 @@ public class Program
         builder.Services.AddDataAccessServices(builder.Configuration);
         builder.Services.AddValidationAspect();
 
+        builder.Services.AddCors(opt => opt.AddDefaultPolicy(p => { p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
+
         var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(options =>
@@ -90,9 +92,12 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
+
+
         app.ConfigureCustomExceptionMiddleware();
 
         app.MapControllers();
+        app.UseCors(opt => opt.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
         app.Run();
     }
 }
