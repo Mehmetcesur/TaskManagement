@@ -15,13 +15,13 @@ using System.Threading.Tasks;
 namespace Business.Concretes
 {
     public class DutyManager : IDutyService
-        
+
     {
 
         IDutyDal _dutyDal;
         IMapper _mapper;
 
-        public DutyManager(IDutyDal dutyDal , IMapper mapper)
+        public DutyManager(IDutyDal dutyDal, IMapper mapper)
         {
             _dutyDal = dutyDal;
             _mapper = mapper;
@@ -40,8 +40,8 @@ namespace Business.Concretes
 
         public async Task<Duty> DeleteAsync(int id)
         {
-            var data = await _dutyDal.GetAsync(i  => i.Id == id);
-            var result = await _dutyDal.DeleteAsync(data);  
+            var data = await _dutyDal.GetAsync(i => i.Id == id);
+            var result = await _dutyDal.DeleteAsync(data);
             return result;
         }
 
@@ -49,7 +49,7 @@ namespace Business.Concretes
         {
             var data = await _dutyDal.GetListAsync(
                 include: p => p.Include(p => p.User),
-                
+
                 index: pageRequest.PageIndex,
                 size: pageRequest.PageSize
 
@@ -61,16 +61,30 @@ namespace Business.Concretes
 
         public async Task<GetListDutyResponse> GetById(int id)
         {
-           var data = await _dutyDal.GetAsync(d => d.Id == id);
-           var result = _mapper.Map<GetListDutyResponse>(data);
+            var data = await _dutyDal.GetAsync(d => d.Id == id);
+            var result = _mapper.Map<GetListDutyResponse>(data);
             return result;
+        }
+
+        public async Task<IPaginate<GetByUserIdDutyResponse>> GetByUserIdAsync(PageRequest pageRequest, int userId)
+        {
+            var data = await _dutyDal.GetListAsync(
+                include: e => e.Include(c => c.User),
+                index: pageRequest.PageIndex,
+                size: pageRequest.PageSize,
+                predicate: p => p.UserId == userId
+                );
+            var result = _mapper.Map<Paginate<GetByUserIdDutyResponse>>(data);
+
+            return result;
+
         }
 
         public async Task<UpdatedDutyResponse> UpdateAsync(UpdateDutyRequest updateDutyRequest)
         {
             var data = await _dutyDal.GetAsync(i => i.Id == updateDutyRequest.Id);
             _mapper.Map(updateDutyRequest, data);
-            data.UpdatedDate = DateTime.Now;    
+            data.UpdatedDate = DateTime.Now;
             await _dutyDal.UpdateAsync(data);
             var result = _mapper.Map<UpdatedDutyResponse>(data);
             return result;

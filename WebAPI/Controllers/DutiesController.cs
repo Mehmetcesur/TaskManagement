@@ -16,37 +16,37 @@ namespace WebAPI.Controllers
     {
         IDutyService _dutyService;
 
-        public DutiesController(IDutyService dutyService )
+        public DutiesController(IDutyService dutyService)
         {
             _dutyService = dutyService;
         }
 
 
-        [HttpPost ("Add")]
+        [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] CreateDutyRequest createDutyRequest)
         {
-            var result= await _dutyService.AddAsync (createDutyRequest);
-            return Ok(result); 
+            var result = await _dutyService.AddAsync(createDutyRequest);
+            return Ok(result);
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest )
+        public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
         {
-            var result = await _dutyService.GetAllAsync (pageRequest);
+            var result = await _dutyService.GetAllAsync(pageRequest);
             return Ok(result);
         }
 
         [HttpPost("Update")]
         public async Task<IActionResult> Update([FromBody] UpdateDutyRequest updateDutyRequest)
         {
-            var result = await _dutyService.UpdateAsync (updateDutyRequest);
+            var result = await _dutyService.UpdateAsync(updateDutyRequest);
             return Ok(result);
         }
 
         [HttpDelete("Delete")]
-        public async Task<IActionResult> Delete([FromBody]int id)
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
-            var result = await (_dutyService.DeleteAsync (id));
+            var result = await (_dutyService.DeleteAsync(id));
             return Ok(result);
         }
 
@@ -55,6 +55,14 @@ namespace WebAPI.Controllers
         {
             var result = await _dutyService.GetById(id);
             return Ok(result);
+        }
+
+        [HttpGet("GetByUserId")]
+        public async Task<IActionResult> GetByUserId(int userId, [FromQuery] PageRequest pageRequest)
+        {
+            var result = await _dutyService.GetByUserIdAsync(pageRequest, userId);
+            return Ok(result);
+
         }
 
     }

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Business.Dtos.Responses.DutyResponse
 {
-    public class GetListDutyResponse
+    public class GetByUserIdDutyResponse
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }

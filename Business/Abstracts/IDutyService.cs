@@ -18,6 +18,7 @@ namespace Business.Abstracts
         Task<Duty> DeleteAsync(int id);
         Task<IPaginate<GetListDutyResponse>> GetAllAsync(PageRequest pageRequest);
         Task<GetListDutyResponse> GetById(int id);
+        Task<IPaginate<GetByUserIdDutyResponse>> GetByUserIdAsync(PageRequest pageRequest, int userId);
 
 
 
