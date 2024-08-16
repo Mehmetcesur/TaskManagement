@@ -27,6 +27,9 @@ namespace Business.Profiles
 
             CreateMap<UpdateDutyRequest, Duty>().ForMember(dest => dest.CreatedDate, opt => opt.Ignore());
             CreateMap<Duty, UpdatedDutyResponse>();
+
+            CreateMap<Duty, GetByUserIdDutyResponse>();
+            CreateMap<Paginate<Duty>, Paginate<GetByUserIdDutyResponse>>();
         }
 
 
