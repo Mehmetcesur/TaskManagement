@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
 
-        
+
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] UserBase user)
         {
@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        
+
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
         {
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-       
+
         [HttpPut("Update")]
         public async Task<IActionResult> Update([FromBody] UpdateUserRequest updateUserRequest)
         {
@@ -41,11 +41,18 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-       
+
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
             var result = await _userService.DeleteAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetById(int userId)
+        {
+            var result = await _userService.GetById(userId);
             return Ok(result);
         }
 

@@ -28,7 +28,15 @@ public class Program
         builder.Services.AddDataAccessServices(builder.Configuration);
         builder.Services.AddValidationAspect();
 
-        builder.Services.AddCors(opt => opt.AddDefaultPolicy(p => { p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
+        // CORS Policy Definition
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowSpecificOrigin",
+                builder => builder.WithOrigins("http://localhost:5173")
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod()
+                                  .AllowCredentials());
+        });
 
         var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -89,15 +97,15 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        // CORS'u Authentication ve Authorization'dan önce kullanýyoruz.
+        app.UseCors("AllowSpecificOrigin");
+
         app.UseAuthentication();
         app.UseAuthorization();
-
-
 
         app.ConfigureCustomExceptionMiddleware();
 
         app.MapControllers();
-        app.UseCors(opt => opt.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
         app.Run();
     }
 }
