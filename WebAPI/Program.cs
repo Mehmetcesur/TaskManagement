@@ -31,11 +31,13 @@ public class Program
         // CORS Policy Definition
         builder.Services.AddCors(options =>
         {
-            options.AddPolicy("AllowSpecificOrigin",
-                builder => builder.WithOrigins("http://localhost:5173")
-                                  .AllowAnyHeader()
-                                  .AllowAnyMethod()
-                                  .AllowCredentials());
+            options.AddPolicy("AllowSpecificOrigin", policy =>
+            {
+                policy.WithOrigins("http://localhost:5173", "http://127.0.0.1:3000")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+                      .AllowCredentials(); // Eðer Credentials kullanmýyorsanýz bunu kaldýrabilirsiniz
+            });
         });
 
         var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
@@ -53,7 +55,6 @@ public class Program
                                 IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                             };
                         });
-
 
         builder.Services.AddSwaggerGen(opt =>
         {
@@ -106,6 +107,18 @@ public class Program
         app.ConfigureCustomExceptionMiddleware();
 
         app.MapControllers();
+
+        // Preflight OPTIONS requests için middleware
+        app.Use(async (context, next) =>
+        {
+            if (context.Request.Method == "OPTIONS")
+            {
+                context.Response.StatusCode = 200;
+                return;
+            }
+            await next.Invoke();
+        });
+
         app.Run();
     }
 }
