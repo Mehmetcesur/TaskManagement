@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    //[Authorize(Roles = "Admin")]
+   
     public class DutiesController : ControllerBase
     {
         IDutyService _dutyService;
@@ -29,6 +29,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
         {

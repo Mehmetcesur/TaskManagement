@@ -36,7 +36,7 @@ public class Program
                 policy.WithOrigins("http://localhost:5173", "http://127.0.0.1:3000", "http://127.0.0.1:3002")
                       .AllowAnyHeader()
                       .AllowAnyMethod()
-                      .AllowCredentials(); // Eðer Credentials kullanmýyorsanýz bunu kaldýrabilirsiniz
+                      .AllowCredentials();
             });
         });
 
@@ -98,7 +98,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        // CORS'u Authentication ve Authorization'dan önce kullanýyoruz.
+        // CORS'u Authentication ve Authorization'dan ï¿½nce kullanï¿½yoruz.
         app.UseCors("AllowSpecificOrigin");
 
         app.UseAuthentication();
@@ -108,7 +108,7 @@ public class Program
 
         app.MapControllers();
 
-        // Preflight OPTIONS requests için middleware
+        // Preflight OPTIONS requests iï¿½in middleware
         app.Use(async (context, next) =>
         {
             if (context.Request.Method == "OPTIONS")

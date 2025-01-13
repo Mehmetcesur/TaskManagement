@@ -24,17 +24,19 @@ public class DutyManagementContext : DbContext
 
     public DutyManagementContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
     {
-        Configuration = configuration;
-        Database.EnsureCreated(); 
+        // Configuration = configuration;
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=DutyManagementContext;integrated security=true;Trusted_Connection=True;TrustServerCertificate=True");
-    }
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+    //     if (!optionsBuilder.IsConfigured)
+    //     {
+    //         throw new Exception("DbContext options must be configured before usage");
+    //     }
+    // }
 
 }
