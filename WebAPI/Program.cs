@@ -98,7 +98,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        // CORS'u Authentication ve Authorization'dan �nce kullan�yoruz.
+        
         app.UseCors("AllowSpecificOrigin");
 
         app.UseAuthentication();
@@ -108,7 +108,7 @@ public class Program
 
         app.MapControllers();
 
-        // Preflight OPTIONS requests i�in middleware
+        // Preflight OPTIONS requests için middleware
         app.Use(async (context, next) =>
         {
             if (context.Request.Method == "OPTIONS")

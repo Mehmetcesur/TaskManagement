@@ -15,5 +15,6 @@ namespace Business.Messages
         internal static string CreatedMessage = "Oluşturuldu";
         internal static string UserIsNotExist = "Böyle bir kullanıcı mevcut değil";
         internal static string OccuredAnErrorDuringRegister = "Kullanıcıyı veritabanına eklerken bir sorun oluştu.";
+        internal static string UserRoleNotFound = "OperationClaims tablosunda User Role bulunamadı";
     }
 }

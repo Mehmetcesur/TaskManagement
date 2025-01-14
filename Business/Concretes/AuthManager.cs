@@ -88,7 +88,7 @@ namespace Business.Concretes
 
             if (userRoleId == null)
             {
-                throw new Exception("User role not found in OperationClaims table.");
+                throw new Exception(BusinessMessages.UserRoleNotFound);
             }
 
             var createUserOperationClaimRequest = new CreateUserOperationClaimRequest
