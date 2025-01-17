@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-   
+
     public class DutiesController : ControllerBase
     {
         IDutyService _dutyService;
@@ -44,10 +44,10 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("Delete")]
-        public async Task<IActionResult> Delete([FromQuery] int id)
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var result = await (_dutyService.DeleteAsync(id));
+            var result = await _dutyService.DeleteAsync(id);
             return Ok(result);
         }
 
